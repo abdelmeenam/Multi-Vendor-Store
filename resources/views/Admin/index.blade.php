@@ -2,6 +2,10 @@
 
 @section('title' , 'Starter page')
 
+@section('breadcrumb')
+    @parent
+    <li class="breadcrumb-item active"><a>Starter page</a></li>
+@endsection
 
 
 @section('content')
