@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use function PHPUnit\Framework\isNull;
 
 class CategoryController extends Controller
 {
@@ -47,9 +48,15 @@ class CategoryController extends Controller
         }catch (\Exception $e){
             return redirect()->route('dashboard.categories.index')->with('info' , 'category not found');
         }
-        $parents = Category::where('id' , '<>' , $id)->orWhere('parent_id' , '!=' , $id)->get();
-        return view('Admin.Categories.edit' , compact(['category','parents']));
 
+        //Select * from categories WHERE $id =! 'id' AND ( $id != 'parent_id' OR parent_id == NULL )
+        $parents = Category::where('id' , '<>' , $id )
+            ->where(function ($query) use($id){
+                $query->whereNULL('parent_id')->orWhere('parent_id', '<>',$id );
+            })
+            ->get();
+
+        return view('Admin.Categories.edit' , compact(['category','parents']));
     }
 
     public function update(Request $request, $id)
