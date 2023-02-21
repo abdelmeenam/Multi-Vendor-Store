@@ -1,6 +1,8 @@
+
 <div class="form-group">
     <label for="Category Name">Category Name </label>
-    <input type="text" value="{{$category->name}}" name="name" class="form-control">
+    <input type="text" value="{{$category->name}}" name="name" class="form-control @error('name') is-invalid @enderror">
+
 </div>
 
 <div class="form-group">
@@ -11,11 +13,17 @@
             <option value="{{$parent->id}}"@selected($parent->id == $category->parent_id ) >{{$parent->name}}</option>
         @endforeach
     </select>
+    @error('parent_id')
+    <div class="text-danger">
+        {{$errors->first('parent_id')}}
+    </div>
+    @endif
 </div>
 
 <div class="form-group">
     <label for="">Description </label>
     <textarea type="text" name="description" class="form-control">{{$category->description}} </textarea>
+
 </div>
 
 <div class="form-group">
@@ -23,6 +31,11 @@
     <input type="file" name="image" class="form-control">
     @if($category->image)
         <img src="{{ asset('storage/uploads/' . $category->image) }}" alt="" height="50">
+    @endif
+    @error('image')
+    <div class="text-danger">
+        {{$errors->first('image')}}
+    </div>
     @endif
 </div>
 
@@ -40,6 +53,11 @@
             Archived
         </label>
     </div>
+    @error('status')
+    <div class="text-danger">
+        {{$errors->first('status')}}
+    </div>
+    @endif
 </div>
 
 <div class="form-group">

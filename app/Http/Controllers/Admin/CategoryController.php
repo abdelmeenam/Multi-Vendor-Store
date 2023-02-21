@@ -30,6 +30,12 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+           'name' => 'required|string',
+            'parent_id' => ['nullable' , 'int' , 'exists:categories,id'],
+            'image' => ['image','max:1048576' , 'required' ],
+            'status' => 'in:active,archived | required'
+        ]);
         $request->merge([
             'slug' => Str::slug($request->name)
         ]);
