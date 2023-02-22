@@ -1,8 +1,12 @@
 
 <div class="form-group">
     <label for="Category Name">Category Name </label>
-    <input type="text" value="{{$category->name}}" name="name" class="form-control @error('name') is-invalid @enderror">
-
+    <input type="text" value="{{ old('name' , $category->name) }}" name="name" @class (['form-control' , 'is-invalid' => $errors->has('name')])>
+    @error('parent_id')
+    <div class="text-danger">
+        {{$message}}
+    </div>
+    @endif
 </div>
 
 <div class="form-group">
@@ -10,7 +14,7 @@
     <select name="parent_id" class="form-control form-select">
         <option value="">Primary Category</option>
         @foreach($parents as $parent)
-            <option value="{{$parent->id}}"@selected($parent->id == $category->parent_id ) >{{$parent->name}}</option>
+            <option value="{{$parent->id}}"@selected(old('parent->id' , $category->parent_id) == $category->parent_id ) >{{$parent->name}}</option>
         @endforeach
     </select>
     @error('parent_id')
@@ -22,7 +26,7 @@
 
 <div class="form-group">
     <label for="">Description </label>
-    <textarea type="text" name="description" class="form-control">{{$category->description}} </textarea>
+    <textarea type="text" name="description" class="form-control">{{old('description' , $category->description)}} </textarea>
 
 </div>
 
@@ -30,11 +34,11 @@
     <label for="">Iamge</label>
     <input type="file" name="image" class="form-control">
     @if($category->image)
-        <img src="{{ asset('storage/uploads/' . $category->image) }}" alt="" height="50">
+        <img src="{{ asset('storage/' . $category->image) }}" alt="" height="50">
     @endif
     @error('image')
     <div class="text-danger">
-        {{$errors->first('image')}}
+        {{$message}}
     </div>
     @endif
 </div>
@@ -42,13 +46,13 @@
 <div class="form-group">
     <label for="">Status</label>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="status"  value="active" @checked($category->status == 'active')>
+        <input class="form-check-input" type="radio" name="status"  value="active" @checked(old('status' , $category->status) == 'active')>
         <label class="form-check-label" >
             Active
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="status"  value="archived" @checked($category->status =='archived')>
+        <input class="form-check-input" type="radio" name="status"  value="archived" @checked(old('status' , $category->status)=='archived')>
         <label class="form-check-label" >
             Archived
         </label>

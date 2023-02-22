@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,18 +29,11 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-           'name' => 'required|string',
-            'parent_id' => ['nullable' , 'int' , 'exists:categories,id'],
-            'image' => ['image','max:1048576' , 'required' ],
-            'status' => 'in:active,archived | required'
-        ]);
         $request->merge([
             'slug' => Str::slug($request->name)
         ]);
-
         $data = $request->except('image');
         $path = $this->uploadImage($request);
         $data['image'] = $path;
@@ -65,18 +59,21 @@ class CategoryController extends Controller
         return view('Admin.Categories.edit' , compact(['category','parents']));
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
+
         $category = Category::findorfail($id);
         $oldImage = $category->image;
 
         $data = $request->except('image');
-        $path = $this->uploadImage($request);
-        $data['image'] = $path;
+        $newPath = $this->uploadImage($request);
+        if ($newPath){
+            $data['image'] = $newPath;
+        }
 
         $category->update($data);
 
-        if ($oldImage && $data['image']){
+        if ($oldImage && $newPath){
             Storage::disk('public')->delete($oldImage);
         }
 
