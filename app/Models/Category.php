@@ -12,16 +12,16 @@ class Category extends Model
     protected $fillable =['parent_id' , 'name' , 'slug' , 'description' , 'image' , 'status'];
 
     /**
-     * @param $id
+     * @param $categoryId
      * @return array
      */
-    public static function rules($id = 0)
+    public static function rules($categoryId = 0)
     {
         return [
             "name" => [
                 'required' ,
                 'string',
-                "unique:categories,name,$id" ,
+                "unique:categories,name,$categoryId" ,
                 /* function($attrivute , $value ,  $fails)
                 {
                     if (strtolower($value) == 'laravel')

@@ -66,14 +66,14 @@ class CategoryController extends Controller
         $oldImage = $category->image;
 
         $data = $request->except('image');
-        $newPath = $this->uploadImage($request);
-        if ($newPath){
-            $data['image'] = $newPath;
+        $newImagePath = $this->uploadImage($request);
+        if ($newImagePath){
+            $data['image'] = $newImagePath;
         }
 
         $category->update($data);
 
-        if ($oldImage && $newPath){
+        if ($oldImage && $newImagePath){
             Storage::disk('public')->delete($oldImage);
         }
 
