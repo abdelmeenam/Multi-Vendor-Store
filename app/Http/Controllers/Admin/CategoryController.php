@@ -73,6 +73,7 @@ class CategoryController extends Controller
 
         $category->update($data);
 
+        //delete the old image
         if ($oldImage && $newImagePath){
             Storage::disk('public')->delete($oldImage);
         }
