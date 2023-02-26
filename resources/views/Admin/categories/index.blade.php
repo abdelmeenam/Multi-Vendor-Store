@@ -13,17 +13,8 @@
         <a href="{{route('dashboard.categories.create')}}" class="btn btn-sm btn-outline-primary mr-2">Create</a>
     </div>
 
-    @if(session()->has('success'))
-        <div class="alert alert-success">
-            {{session('success')}}
-        </div>
-    @endif
-
-    @if(session()->has('info'))
-        <div class="alert alert-info">
-            {{session('info')}}
-        </div>
-    @endif
+    <x-alert type="success" />
+    <x-alert type="info" />
 
     <table class="table">
         <thead>
@@ -34,7 +25,6 @@
             <th>Parent Category</th>
             <th>Status</th>
             <th>Created At</th>
-
             <th colspan="2">Operation</th>
         </tr>
         </thead>
