@@ -1,13 +1,8 @@
 
 <div class="form-group">
-    <label for="Category Name">Category Name </label>
-    <input type="text" value="{{ old('name' , $category->name) }}" name="name" @class (['form-control' , 'is-invalid' => $errors->has('name')])>
-    @error('parent_id')
-    <div class="text-danger">
-        {{$message}}
-    </div>
-    @endif
+    <x-form.input label="Category Name" class="form-control-lg" role="input" name="name" :value="$category->name" />
 </div>
+
 
 <div class="form-group">
     <label for="Category Parent">Category Parent </label>
@@ -21,18 +16,19 @@
     <div class="text-danger">
         {{$errors->first('parent_id')}}
     </div>
-    @endif
+    @enderror
 </div>
 
 <div class="form-group">
     <label for="">Description </label>
-    <textarea type="text" name="description" class="form-control">{{old('description' , $category->description)}} </textarea>
-
+    <x-form.textarea name="description" :value="$category->description" />
 </div>
 
 <div class="form-group">
-    <label for="">Iamge</label>
-    <input type="file" name="image" class="form-control">
+
+    <x-form.label id="image">Image</x-form.label>
+    <x-form.input type="file" name="image" accept="image/*" />
+
     @if($category->image)
         <img src="{{ asset('storage/' . $category->image) }}" alt="" height="50">
     @endif
@@ -40,7 +36,7 @@
     <div class="text-danger">
         {{$message}}
     </div>
-    @endif
+    @enderror
 </div>
 
 <div class="form-group">
@@ -61,7 +57,7 @@
     <div class="text-danger">
         {{$errors->first('status')}}
     </div>
-    @endif
+    @enderror
 </div>
 
 <div class="form-group">
