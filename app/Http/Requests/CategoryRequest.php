@@ -30,7 +30,7 @@ class CategoryRequest extends FormRequest
 
     public function messages(){
         return [
-            'name.required' => 'This filed(:attribute) is required' ,
+            'name.required' => 'This filed :attribute is required' ,
             'name.unique' => 'This name is already exists'
         ];
     }

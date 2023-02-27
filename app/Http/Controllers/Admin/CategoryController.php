@@ -16,7 +16,20 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $request = request();
+        $query = Category::query();
+
+        if ($name =$request->query('name')){
+            $query->where('name' , 'LIKE' , "%{$name}%");
+        }
+
+        if ($status =$request->query('status')){
+            $query->whereStatus($status);
+        }
+
+
+        $categories = $query->paginate(5);
+        //$categories = Category::simplepaginate(5);
         return view('Admin.Categories.index' , compact('categories'));
     }
 

@@ -40,11 +40,11 @@
 </div>
 
 <div class="form-group">
-    <x-form.radio name="status" :checked="$category->status" :options="['active' => 'Active', 'archived' => 'Archived']" />
+    <x-form.radio name="status" :checked="$category->status" :options="['active' => 'active', 'archived' => 'archived']" />
 
     @error('status')
     <div class="text-danger">
-        {{$errors->first('status')}}
+        {{$message}}
     </div>
     @enderror
 </div>

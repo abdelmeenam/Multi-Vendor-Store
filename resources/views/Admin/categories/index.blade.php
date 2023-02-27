@@ -16,6 +16,17 @@
     <x-alert type="success" />
     <x-alert type="info" />
 
+    <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between mb-4">
+        <x-form.input label="Name" class="mx-2" name="name" :value="request('name')" />
+
+        <select name="status" class="form-control mx-2">
+            <option value="">All</option>
+            <option value="active">Active</option>
+            <option value="archived">Archived</option>
+        </select>
+        <button class="btn btn-dark mx-2">Filter</button>
+    </form>
+
     <table class="table">
         <thead>
         <tr>
@@ -58,6 +69,5 @@
         @endforelse
         </tbody>
     </table>
-
-
+{{$categories->links()}}
 @endsection
