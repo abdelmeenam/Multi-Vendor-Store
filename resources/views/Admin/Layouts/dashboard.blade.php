@@ -194,9 +194,9 @@
             </div>
 
             <!------------------------- Sidebar Menu ------------------>
-            @include('Admin.Layouts.partials.nav')
+            {{--@include('Admin.Layouts.partials.nav')--}}
             <!------------------------ /.sidebar-menu ------------------>
-
+            <x-nav />
         </div>
         <!-- /.sidebar -->
     </aside>

@@ -41,6 +41,7 @@
 
 <div class="form-group">
     <x-form.radio name="status" :checked="$category->status" :options="['active' => 'Active', 'archived' => 'Archived']" />
+
     @error('status')
     <div class="text-danger">
         {{$errors->first('status')}}
