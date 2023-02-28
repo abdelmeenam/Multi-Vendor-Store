@@ -17,19 +17,16 @@ class CategoryController extends Controller
     public function index()
     {
         $request = request();
-        $query = Category::query();
 
-        if ($name =$request->query('name')){
-            $query->where('name' , 'LIKE' , "%{$name}%");
-        }
+        $categories = Category::Leftjoin('categories as parent' , 'parent.id' ,'=' , 'categories.parent_id')
+            ->select([
+                'categories.*' ,
+                'parent.name as parent_name'
+            ])
+            ->filer($request->query())
+            ->orderBy('categories.name' , 'asc')
+            ->paginate(5);
 
-        if ($status =$request->query('status')){
-            $query->whereStatus($status);
-        }
-
-
-        $categories = $query->paginate(1);
-        //$categories = Category::simplepaginate(5);
         return view('Admin.Categories.index' , compact('categories'));
     }
 

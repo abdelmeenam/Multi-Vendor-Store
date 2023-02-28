@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Rules\CategoryFilter;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,29 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable =['parent_id' , 'name' , 'slug' , 'description' , 'image' , 'status'];
+
+
+    /**
+     * @param Builder $builder
+     * @param $status
+     * @return void\
+     */
+    public function scopeFiler(Builder $builder , $filters )
+    {
+        $builder->when($filters['name'] ?? false , function ($builder , $value ){
+            $builder->where('name' , 'LIKE' , "%{$value}%");
+        });
+
+        $builder->when($filters['status'] ?? false , function ($builder , $value){
+            $builder->whereStatus($value);
+        });
+        //if ($filters['name'] ?? false){
+        //    $builder->where('name' , 'LIKE' , "%{$filters['name']}%");
+        //}
+        // if ($filters['status'] ?? false){
+        //   $builder->whereStatus($filters['status']);
+        // }
+    }
 
     /**
      * @param $categoryId

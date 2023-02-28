@@ -45,7 +45,7 @@
                 <td><img src="{{ asset('storage/' . $category->image) }}" alt="" height="50"></td>
                 <td>{{ $category->id }}</td>
                 <td><a href="{{ route('dashboard.categories.show', $category->id) }}">{{ $category->name }}</a></td>
-                <td>{{ $category->parent_id }}</td>
+                <td>{{ $category->parent_name }}</td>
 
                 <td>{{ $category->status }}</td>
                 <td>{{ $category->created_at }}</td>
