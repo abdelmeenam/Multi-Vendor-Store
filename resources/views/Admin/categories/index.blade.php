@@ -21,8 +21,8 @@
 
         <select name="status" class="form-control mx-2">
             <option value="">All</option>
-            <option value="active">Active</option>
-            <option value="archived">Archived</option>
+            <option value="active" @selected( request('status') =='active') >Active</option>
+            <option value="archived" @selected( request('status') =='archived')>Archived</option>
         </select>
         <button class="btn btn-dark mx-2">Filter</button>
     </form>
@@ -69,5 +69,5 @@
         @endforelse
         </tbody>
     </table>
-{{$categories->links()}}
+{{$categories->withQueryString()->links()}}
 @endsection

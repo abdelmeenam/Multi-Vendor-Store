@@ -28,7 +28,7 @@ class CategoryController extends Controller
         }
 
 
-        $categories = $query->paginate(5);
+        $categories = $query->paginate(1);
         //$categories = Category::simplepaginate(5);
         return view('Admin.Categories.index' , compact('categories'));
     }
