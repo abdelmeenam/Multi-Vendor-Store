@@ -23,7 +23,8 @@ class CategoryController extends Controller
                 'categories.*' ,
                 'parent.name as parent_name'
             ])
-            ->filer($request->query())
+
+            ->filer($request->query())              //query() = query param
             ->orderBy('categories.name' , 'asc')
             ->paginate(5);
 
@@ -83,7 +84,7 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        //delete the old image
+        //Delete the old image
         if ($oldImage && $newImagePath){
             Storage::disk('public')->delete($oldImage);
         }
