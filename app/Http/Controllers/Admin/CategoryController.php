@@ -45,6 +45,7 @@ class CategoryController extends Controller
         $request->merge([
             'slug' => Str::slug($request->name)
         ]);
+        //image
         $data = $request->except('image');
         $path = $this->uploadImage($request);
         $data['image'] = $path;
