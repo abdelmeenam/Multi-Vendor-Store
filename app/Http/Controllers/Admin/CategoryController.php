@@ -60,7 +60,7 @@ class CategoryController extends Controller
         try {
             $category = Category::findorfail($id);
         }catch (\Exception $e){
-            return redirect()->route('dashboard.categories.index')->with('info' , 'category not found');
+            return redirect()->route('dashboard.categories.index')->with('info' , 'category is not found');
         }
         //Select * from categories WHERE $id =! 'id' AND ( $id != 'parent_id' OR parent_id == NULL )
         $parents = Category::where('id' , '<>' , $id )
