@@ -68,6 +68,8 @@ class CategoryController extends Controller
                 $query->whereNULL('parent_id')->orWhere('parent_id', '<>',$id );
             })
             ->get();
+
+        //view
         return view('Admin.Categories.edit' , compact(['category','parents']));
     }
 
