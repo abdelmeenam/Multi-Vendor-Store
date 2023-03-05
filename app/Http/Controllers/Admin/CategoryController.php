@@ -13,7 +13,6 @@ use function PHPUnit\Framework\isNull;
 
 class CategoryController extends Controller
 {
-
     public function index()
     {
         $request = request();
@@ -101,9 +100,6 @@ class CategoryController extends Controller
         //Category::destroy($id);
         $category = Category::findorfail($id);
         $category->delete();
-        if ($category->image){
-            Storage::disk('public')->delete($category->image);
-        }
         return redirect()->route('dashboard.categories.index')->with('delete' , 'category deleted');
     }
 
@@ -120,6 +116,34 @@ class CategoryController extends Controller
         $file = $request->file('image');
         $path = $file->Store('uploads', ['disk' => 'public']);
         return $path;
+    }
+
+    public function trash(){
+        $categories = Category::onlyTrashed()->paginate();
+        return view('Admin.Categories.trash', compact('categories'));
+
+    }
+
+    public function restore(Request $request, $id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+
+        return redirect()->route('dashboard.categories.trash')
+            ->with('succes', 'Category restored!');
+    }
+
+    public function forceDelete($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+
+        if ($category->image) {
+            Storage::disk('public')->delete($category->image);
+        }
+
+        return redirect()->route('dashboard.categories.trash')
+            ->with('succes', 'Category deleted forever!');
     }
 
 }
