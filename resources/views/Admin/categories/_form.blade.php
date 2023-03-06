@@ -1,7 +1,4 @@
 
-
-
-
 <div class="form-group">
     <x-form.input label="Category Name" class="form-control-lg" role="input" name="name" :value="$category->name" />
 </div>

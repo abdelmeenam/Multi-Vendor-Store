@@ -10,21 +10,16 @@ return [
         'icon' => 'fas fa-tags nav-icon',
         'route' => 'dashboard.categories.index',
         'title' => 'Categories',
-        'badge' => 'bew',
+        'badge' => 'Categories',
         'active' => 'dashboard.categories.*'
 
     ],
     [
         'icon' => 'fas fa-tags nav-icon',
-        'route' => 'dashboard.categories.create',
+        'route' => 'dashboard.products.index',
         'title' => 'Products',
-        'active' => 'dashboard.products'
+        'active' => 'dashboard.products.*'
     ],
-    [
-        'icon' => 'fas fa-tags nav-icon',
-        'route' => 'dashboard.categories.create',
-        'title' => 'Orders',
-        'active' => 'dashboard.orders'
-    ],
+
 
 ];
