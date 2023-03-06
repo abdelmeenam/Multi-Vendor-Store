@@ -35,7 +35,7 @@
             <th>Name</th>
             <th>Status</th>
             <th>Deleted At</th>
-            <th colspan="2"></th>
+            <th colspan="2">Operation</th>
         </tr>
         </thead>
         <tbody>

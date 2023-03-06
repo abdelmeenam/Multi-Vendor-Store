@@ -17,25 +17,25 @@ class CategoryController extends Controller
     {
         $request = request();
 
-        $categories = Category::Leftjoin('categories as parent' , 'parent.id' ,'=' , 'categories.parent_id')
+        $categories = Category::Leftjoin('categories as parent', 'parent.id', '=', 'categories.parent_id')
             ->select([
-                'categories.*' ,
+                'categories.*',
                 'parent.name as parent_name'
             ])
 
             ->filer($request->query())              //query() = query param
-            ->orderBy('categories.name' , 'asc')
+            ->orderBy('categories.name', 'asc')
             ->paginate(5);
 
-        return view('Admin.Categories.index' , compact('categories'));
+        return view('Admin.Categories.index', compact('categories'));
     }
 
 
     public function create()
     {
         $parents = Category::all();
-        $category= new Category();
-        return view('Admin.Categories.create' , compact('parents' , 'category'));
+        $category = new Category();
+        return view('Admin.Categories.create', compact('parents', 'category'));
     }
 
 
@@ -51,25 +51,25 @@ class CategoryController extends Controller
 
         Category::create($data);
         //PRD
-        return redirect()->route('dashboard.categories.index')->with('success' , 'category added');
+        return redirect()->route('dashboard.categories.index')->with('success', 'category added');
     }
 
     public function edit($id)
     {
         try {
             $category = Category::findorfail($id);
-        }catch (\Exception $e){
-            return redirect()->route('dashboard.categories.index')->with('info' , 'category is not found');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.categories.index')->with('info', 'category is not found');
         }
         //Select * from categories WHERE $id =! 'id' AND ( $id != 'parent_id' OR parent_id == NULL )
-        $parents = Category::where('id' , '<>' , $id )
-            ->where(function ($query) use($id){
-                $query->whereNULL('parent_id')->orWhere('parent_id', '<>',$id );
+        $parents = Category::where('id', '<>', $id)
+            ->where(function ($query) use ($id) {
+                $query->whereNULL('parent_id')->orWhere('parent_id', '<>', $id);
             })
             ->get();
 
         //view
-        return view('Admin.Categories.edit' , compact(['category','parents']));
+        return view('Admin.Categories.edit', compact(['category', 'parents']));
     }
 
     public function update(CategoryRequest $request, $id)
@@ -80,18 +80,18 @@ class CategoryController extends Controller
 
         $data = $request->except('image');
         $newImagePath = $this->uploadImage($request);
-        if ($newImagePath){
+        if ($newImagePath) {
             $data['image'] = $newImagePath;
         }
 
         $category->update($data);
 
         //Delete the old image
-        if ($oldImage && $newImagePath){
+        if ($oldImage && $newImagePath) {
             Storage::disk('public')->delete($oldImage);
         }
 
-        return redirect()->route('dashboard.categories.index')->with('success' , 'category updated');
+        return redirect()->route('dashboard.categories.index')->with('success', 'category updated');
     }
 
 
@@ -100,7 +100,7 @@ class CategoryController extends Controller
         //Category::destroy($id);
         $category = Category::findorfail($id);
         $category->delete();
-        return redirect()->route('dashboard.categories.index')->with('delete' , 'category deleted');
+        return redirect()->route('dashboard.categories.index')->with('delete', 'category deleted');
     }
 
     /**
@@ -109,8 +109,7 @@ class CategoryController extends Controller
      */
     protected function uploadImage(Request $request)
     {
-        if (!$request->hasFile('image'))
-        {
+        if (!$request->hasFile('image')) {
             return;
         }
         $file = $request->file('image');
@@ -118,10 +117,10 @@ class CategoryController extends Controller
         return $path;
     }
 
-    public function trash(){
+    public function trash()
+    {
         $categories = Category::onlyTrashed()->paginate();
         return view('Admin.Categories.trash', compact('categories'));
-
     }
 
     public function restore(Request $request, $id)
@@ -130,7 +129,7 @@ class CategoryController extends Controller
         $category->restore();
 
         return redirect()->route('dashboard.categories.trash')
-            ->with('succes', 'Category restored!');
+            ->with('success', 'Category restored!');
     }
 
     public function forceDelete($id)
@@ -143,7 +142,6 @@ class CategoryController extends Controller
         }
 
         return redirect()->route('dashboard.categories.trash')
-            ->with('succes', 'Category deleted forever!');
+            ->with('success', 'Category deleted forever!');
     }
-
 }
