@@ -17,14 +17,14 @@ class CategoryController extends Controller
     {
         $request = request();
 
-        $categories = Category::Leftjoin('categories as parent', 'parent.id', '=', 'categories.parent_id')
+        $categories = Category::with('parent')
+            /*Leftjoin('categories as parent', 'parent.id', '=', 'categories.parent_id')
             ->select([
                 'categories.*',
                 'parent.name as parent_name'
-            ])
-
+            ])*/
             ->filer($request->query())              //query() = query param
-            ->orderBy('categories.name', 'asc')
+            ->selectRaw()
             ->paginate(5);
 
         return view('Admin.Categories.index', compact('categories'));

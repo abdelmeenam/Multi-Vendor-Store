@@ -10,43 +10,46 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory , SoftDeletes;
-    protected $fillable =['parent_id' , 'name' , 'slug' , 'description' , 'image' , 'status'];
+    use HasFactory, SoftDeletes;
+    protected $fillable = ['parent_id', 'name', 'slug', 'description', 'image', 'status'];
 
 
-    /**
-     * @param Builder $builder
-     * @param $status
-     * @return void\
-     */
-    public function scopeFiler(Builder $builder , $filters )
+    public function scopeFiler(Builder $builder, $filters)
     {
-        $builder->when($filters['name'] ?? false , function ($builder , $value ){
-            $builder->where('name' , 'LIKE' , "%{$value}%");
+        $builder->when($filters['name'] ?? false, function ($builder, $value) {
+            $builder->where('name', 'LIKE', "%{$value}%");
         });
 
-        $builder->when($filters['status'] ?? false , function ($builder , $value){
+        $builder->when($filters['status'] ?? false, function ($builder, $value) {
             $builder->whereStatus($value);
         });
-        //if ($filters['name'] ?? false){
-        //    $builder->where('name' , 'LIKE' , "%{$filters['name']}%");
-        //}
-        // if ($filters['status'] ?? false){
-        //   $builder->whereStatus($filters['status']);
-        // }
     }
 
-    /**
-     * @param $categoryId
-     * @return array
-     */
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id', 'id')->withDefault();
+    }
+
+
     public static function rules($categoryId = 0)
     {
         return [
             "name" => [
-                'required' ,
+                'required',
                 'string',
-                "unique:categories,name,$categoryId" ,
+                "unique:categories,name,$categoryId",
                 /* function($attrivute , $value ,  $fails)
                 {
                     if (strtolower($value) == 'laravel')
@@ -56,11 +59,10 @@ class Category extends Model
                 }*/
                 new CategoryFilter('laravel')
             ],
-            'parent_id' => ['nullable' , 'int' , 'exists:categories,id'],
-            'image' => ['image','max:1048576'  ],
+            'parent_id' => ['nullable', 'int', 'exists:categories,id'],
+            'image' => ['image', 'max:1048576'],
             'status' => 'in:active,archived| required',
 
         ];
     }
-
 }
