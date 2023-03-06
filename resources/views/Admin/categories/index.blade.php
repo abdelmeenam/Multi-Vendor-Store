@@ -35,7 +35,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Parent Category</th>
-            <th>Parent #</th>
+            <th>Products #</th>
             <th>Status</th>
             <th>Created At</th>
             <th colspan="2">Operation</th>
@@ -49,7 +49,7 @@
                 <td><a href="{{ route('dashboard.categories.show', $category->id) }}">{{ $category->name }}</a></td>
                 <td>{{ $category->parent->name }}</td>
 
-                <td>{{ $category->count }}</td>
+                <td>{{ $category->products_count }}</td>
                 <td>{{ $category->status }}</td>
                 <td>{{ $category->created_at }}</td>
 

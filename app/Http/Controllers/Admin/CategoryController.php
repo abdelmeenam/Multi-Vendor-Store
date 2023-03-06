@@ -18,14 +18,13 @@ class CategoryController extends Controller
         $request = request();
 
         $categories = Category::with('parent')
-            /*Leftjoin('categories as parent', 'parent.id', '=', 'categories.parent_id')
-            ->select([
-                'categories.*',
-                'parent.name as parent_name'
-            ])*/
+            ->withCount([
+                'products' => function ($query) {
+                    $query->Where('status', 'active');
+                }
+            ])
             ->filer($request->query())              //query() = query param
-            ->selectRaw()
-            ->paginate(5);
+            ->paginate();
 
         return view('Admin.Categories.index', compact('categories'));
     }
@@ -38,6 +37,11 @@ class CategoryController extends Controller
         return view('Admin.Categories.create', compact('parents', 'category'));
     }
 
+
+    public function show(Category $category)
+    {
+        return view('Admin.Categories.show', ['category' => $category]);
+    }
 
     public function store(CategoryRequest $request)
     {
