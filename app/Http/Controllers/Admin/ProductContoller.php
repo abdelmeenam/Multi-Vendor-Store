@@ -16,14 +16,7 @@ class ProductContoller extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if ($user->store_id ?? false) {
-            $products = Product::where('store_id', $user->store_id)
-                ->paginate();
-        } else {
-            $products = Product::paginate();
-        }
-
+        $products = Product::paginate();
         return view('Admin.products.index', compact('products'));
     }
 
