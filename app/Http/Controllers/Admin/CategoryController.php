@@ -99,6 +99,10 @@ class CategoryController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         //Category::destroy($id);
@@ -121,12 +125,20 @@ class CategoryController extends Controller
         return $path;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function trash()
     {
         $categories = Category::onlyTrashed()->paginate();
         return view('Admin.Categories.trash', compact('categories'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore(Request $request, $id)
     {
         $category = Category::onlyTrashed()->findOrFail($id);
@@ -136,6 +148,10 @@ class CategoryController extends Controller
             ->with('success', 'Category restored!');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function forceDelete($id)
     {
         $category = Category::onlyTrashed()->findOrFail($id);
