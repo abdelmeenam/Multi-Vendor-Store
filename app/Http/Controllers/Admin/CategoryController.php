@@ -76,6 +76,11 @@ class CategoryController extends Controller
         return view('Admin.Categories.edit', compact(['category', 'parents']));
     }
 
+    /**
+     * @param CategoryRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(CategoryRequest $request, $id)
     {
 
