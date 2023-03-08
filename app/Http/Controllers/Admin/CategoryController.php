@@ -58,6 +58,10 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories.index')->with('success', 'category added');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function edit($id)
     {
         try {
