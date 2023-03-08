@@ -14,6 +14,7 @@ class Product extends Model
 
     protected static function booted()
     {
+        //Global Filter to get only products of the auth user with his store
         static::addGlobalScope('store', new StoreScope);
     }
 

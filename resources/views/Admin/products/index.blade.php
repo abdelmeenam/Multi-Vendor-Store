@@ -36,27 +36,26 @@
             <th>Name</th>
             <th>Category</th>
             <th>Store</th>
-            <th>status</th>
+            <th>Status</th>
             <th>Created At</th>
-            <th colspan="2">Operation</th>
+            <th colspan="2"></th>
         </tr>
         </thead>
         <tbody>
-        @forelse($products as $category)
+        @forelse($products as $product)
             <tr>
-                <td><img src="{{ asset('storage/' . $category->image) }}" alt="" height="50"></td>
-                <td>{{ $category->id }}</td>
-                <td>{{ $category->name }}</a></td>
-                <td><a href="{{ route('dashboard.categories.show', $category->id) }}">{{ $category->name }}</a></td>
-                <td>{{ $category->store->name }}</td>
-                <td>{{ $category->status }}</td>
-                <td>{{ $category->created_at }}</td>
-
+                <td><img src="{{ asset('storage/' . $product->image) }}" alt="" height="50"></td>
+                <td>{{ $product->id }}</td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->category->name }}</td>
+                <td>{{ $product->store->name }}</td>
+                <td>{{ $product->status }}</td>
+                <td>{{ $product->created_at }}</td>
                 <td>
-                        <a href="{{ route('dashboard.products.edit', $category->id) }}" class="btn btn-sm btn-outline-success">Edit</a>
+                        <a href="{{ route('dashboard.products.edit', $product->id) }}" class="btn btn-sm btn-outline-success">Edit</a>
                 </td>
                 <td>
-                        <form action="{{ route('dashboard.products.destroy', $category->id) }}" method="post">
+                        <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="post">
                             @csrf
                             <!-- Form Method Spoofing -->
                             @method('delete')
