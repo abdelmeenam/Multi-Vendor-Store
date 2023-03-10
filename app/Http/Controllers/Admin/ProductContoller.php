@@ -49,7 +49,7 @@ class ProductContoller extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
     }
 
     /**
@@ -60,7 +60,8 @@ class ProductContoller extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('Admin.products.edit', compact('product'));
     }
 
     /**
@@ -70,9 +71,11 @@ class ProductContoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->update( $request->except('tags') );
+        return redirect()->route('Admin.products.index')
+            ->with('success', 'Product updated');
     }
 
     /**
