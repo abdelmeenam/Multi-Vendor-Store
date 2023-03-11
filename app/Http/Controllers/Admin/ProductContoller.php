@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductContoller extends Controller
 {
@@ -61,7 +62,11 @@ class ProductContoller extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('Admin.products.edit', compact('product'));
+        $this->authorize('update', $product);
+
+        $tags = implode(',', $product->tags()->pluck('name')->toArray());
+
+        return view('Admin.products.edit', compact('product', 'tags'));
     }
 
     /**
@@ -74,6 +79,26 @@ class ProductContoller extends Controller
     public function update(Request $request, Product $product)
     {
         $product->update( $request->except('tags') );
+
+        $tags = json_decode($request->post('tags'));
+        $tag_ids = [];
+
+        $saved_tags = Tag::all();
+
+        foreach ($tags as $item) {
+            $slug = Str::slug($item->value);
+            $tag = $saved_tags->where('slug', $slug)->first();
+            if (!$tag) {
+                $tag = Tag::create([
+                    'name' => $item->value,
+                    'slug' => $slug,
+                ]);
+            }
+            $tag_ids[] = $tag->id;
+        }
+
+        $product->tags()->sync($tag_ids);
+
         return redirect()->route('Admin.products.index')
             ->with('success', 'Product updated');
     }

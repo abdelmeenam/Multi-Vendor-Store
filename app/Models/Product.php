@@ -12,6 +12,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'slug', 'description', 'image', 'category_id', 'store_id',
+        'price', 'compare_price', 'status',
+    ];
+
     protected static function booted()
     {
         //Global Filter to get only products of the auth user with his store
