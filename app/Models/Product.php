@@ -36,7 +36,7 @@ class Product extends Model
     public function tags(){
         return $this->belongsToMany(
           Tag::class ,      //Related model
-          'product_table' ,     //Pivot table
+          'product_tag' ,     //Pivot table
           'product_id',  //FK of pivot table for the current
           'tag_id'  ,    //FK of pivot table for the related
           'id' ,             //PK Current

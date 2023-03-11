@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,9 @@ class ProductContoller extends Controller
      */
     public function create()
     {
-        //
+
+        return view('Admin.products.create');
+
     }
 
     /**
@@ -62,7 +65,6 @@ class ProductContoller extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $this->authorize('update', $product);
 
         $tags = implode(',', $product->tags()->pluck('name')->toArray());
 
@@ -81,6 +83,7 @@ class ProductContoller extends Controller
         $product->update( $request->except('tags') );
 
         $tags = json_decode($request->post('tags'));
+
         $tag_ids = [];
 
         $saved_tags = Tag::all();
@@ -99,8 +102,7 @@ class ProductContoller extends Controller
 
         $product->tags()->sync($tag_ids);
 
-        return redirect()->route('Admin.products.index')
-            ->with('success', 'Product updated');
+        return redirect()->route('dashboard.products.index')->with('success', 'Product updated');
     }
 
     /**
