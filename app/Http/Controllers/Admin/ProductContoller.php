@@ -82,7 +82,7 @@ class ProductContoller extends Controller
     {
         $product->update( $request->except('tags') );
 
-        $tags = json_decode($request->post('tags'));
+        $tags = json_decode($request->post('tags'));  //Array of objects
 
         $tag_ids = [];
 
@@ -90,7 +90,9 @@ class ProductContoller extends Controller
 
         foreach ($tags as $item) {
             $slug = Str::slug($item->value);
-            $tag = $saved_tags->where('slug', $slug)->first();
+            $tag = $saved_tags->where('slug', $slug)->first(); //search in collection not DB
+            //$tag = Tag::where('slug', $slug)->first();
+
             if (!$tag) {
                 $tag = Tag::create([
                     'name' => $item->value,

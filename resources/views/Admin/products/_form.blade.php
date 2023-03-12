@@ -2,6 +2,7 @@
 <div class="form-group">
     <x-form.input label="Product Name" class="form-control-lg" role="input" name="name" :value="$product->name" />
 </div>
+
 <div class="form-group">
     <label for="">Category</label>
     <select name="category_id" class="form-control form-select">
