@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use App\Models\Scopes\StoreScope;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -23,6 +24,32 @@ class Product extends Model
         static::addGlobalScope('store', new StoreScope);
     }
 
+    public function scopeActive(Builder $builder)
+    {
+        $builder->where('status', '=', 'active');
+    }
+
+    // Accessors
+    // $product->image_url
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return 'https://www.incathlab.com/images/products/default_product.png';
+        }
+        if (Str::startsWith($this->image, ['http://', 'https://'])) {
+            return $this->image;
+        }
+        return asset('storage/' . $this->image);
+    }
+
+    public function getSalePercentAttribute()
+    {
+        if (!$this->compare_price) {
+            return 0;
+        }
+        return round(100 - (100 * $this->price / $this->compare_price), 1);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
@@ -33,14 +60,15 @@ class Product extends Model
         return $this->belongsTo(Store::class, 'store_id', 'id');
     }
 
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(
-          Tag::class ,      //Related model
-          'product_tag' ,     //Pivot table
-          'product_id',  //FK of pivot table for the current
-          'tag_id'  ,    //FK of pivot table for the related
-          'id' ,             //PK Current
-          'id'              //PK Related
+            Tag::class,      //Related model
+            'product_tag',     //Pivot table
+            'product_id',  //FK of pivot table for the current
+            'tag_id',    //FK of pivot table for the related
+            'id',             //PK Current
+            'id'              //PK Related
         );
     }
 }
