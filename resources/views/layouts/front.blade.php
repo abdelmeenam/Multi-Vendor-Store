@@ -7,14 +7,14 @@
     <title>{{ $title }}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset("FrontAssets/images/favicon.svg") }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('FrontAssets/images/favicon.svg') }}" />
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{{ asset("FrontAssets/css/bootstrap.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("FrontAssets/css/LineIcons.3.0.css") }}" />
-    <link rel="stylesheet" href="{{ asset("FrontAssets/css/tiny-slider.css") }}" />
-    <link rel="stylesheet" href="{{ asset("FrontAssets/css/glightbox.min.css") }}" />
-    <link rel="stylesheet" href="{{ asset("FrontAssets/css/main.css") }}" />
+    <link rel="stylesheet" href="{{ asset('FrontAssets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('FrontAssets/css/LineIcons.3.0.css') }}" />
+    <link rel="stylesheet" href="{{ asset('FrontAssets/css/tiny-slider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('FrontAssets/css/glightbox.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('FrontAssets/css/main.css') }}" />
     @stack('styles')
 
 </head>
@@ -27,6 +27,7 @@
         your experience and security.
       </p>
     <![endif]-->
+
 
     <!-- Preloader -->
     <div class="preloader">
@@ -112,7 +113,7 @@
                     <div class="col-lg-3 col-md-3 col-7">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="index.html">
-                            <img src="{{ asset("FrontAssets/images/logo/logo.svg") }}" alt="Logo">
+                            <img src="{{ asset('FrontAssets/images/logo/logo.svg') }}" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
                     </div>
@@ -172,11 +173,12 @@
                                         </div>
                                         <ul class="shopping-list">
                                             <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></a>
+                                                <a href="javascript:void(0)" class="remove"
+                                                    title="Remove this item"><i class="lni lni-close"></i></a>
                                                 <div class="cart-img-head">
                                                     <a class="cart-img" href="product-details.html"><img
-                                                            src="{{ asset("FrontAssets/images/header/cart-items/item1.jpg") }}" alt="#"></a>
+                                                            src="assets/images/header/cart-items/item1.jpg"
+                                                            alt="#"></a>
                                                 </div>
 
                                                 <div class="content">
@@ -186,11 +188,12 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></a>
+                                                <a href="javascript:void(0)" class="remove"
+                                                    title="Remove this item"><i class="lni lni-close"></i></a>
                                                 <div class="cart-img-head">
                                                     <a class="cart-img" href="product-details.html"><img
-                                                            src="{{ asset("FrontAssets/images/header/cart-items/item2.jpg") }}" alt="#"></a>
+                                                            src="assets/images/header/cart-items/item2.jpg"
+                                                            alt="#"></a>
                                                 </div>
                                                 <div class="content">
                                                     <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
@@ -283,9 +286,10 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Shop</a>
+                                        <a class="dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-3"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Shop</a>
                                         <ul class="sub-menu collapse" id="submenu-1-3">
                                             <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
                                             <li class="nav-item"><a href="product-list.html">Shop List</a></li>
@@ -295,11 +299,13 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
+                                        <a class="dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Blog</a>
                                         <ul class="sub-menu collapse" id="submenu-1-4">
-                                            <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
+                                            <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid
+                                                    Sidebar</a>
                                             </li>
                                             <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
                                             <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
@@ -347,7 +353,7 @@
     <!-- End Breadcrumbs -->
 
     <!-- Our Area -------------------------------------------------------------->
-        {{ $slot }}
+    {{ $slot }}
     <!-- Our Area ------------------------------------------------------------->
 
     <!-- Start Footer Area -->
@@ -360,7 +366,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="{{ asset("FrontAssets/images/logo/white-logo.svg") }}" alt="#">
+                                    <img src="{{ asset('FrontAssets/images/logo/white-logo.svg') }}" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -469,7 +475,8 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>We Accept:</span>
-                                <img src="{{ asset("FrontAssets/images/footer/credit-cards-footer.png") }}" alt="#">
+                                <img src="{{ asset('FrontAssets/images/footer/credit-cards-footer.png') }}"
+                                    alt="#">
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
@@ -503,10 +510,10 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
-    <script src="{{ asset("FrontAssets/js/bootstrap.min.js") }}"></script>
-    <script src="{{ asset("FrontAssets/js/tiny-slider.js") }}"></script>
-    <script src="{{ asset("FrontAssets/js/glightbox.min.js") }}"></script>
-    <script src="{{ asset("FrontAssets/js/main.js") }}"></script>
+    <script src="{{ asset('FrontAssets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('FrontAssets/js/tiny-slider.js') }}"></script>
+    <script src="{{ asset('FrontAssets/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('FrontAssets/js/main.js') }}"></script>
     @stack('scripts')
 </body>
 

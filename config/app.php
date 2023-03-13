@@ -71,6 +71,22 @@ return [
 
     'timezone' => 'UTC',
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application currency Configuration
+    |--------------------------------------------------------------------------
+    |
+    | The application locale determines the default locale that will be used
+    | by the currency service provider. You are free to set this value
+    | to any of the locales which will be supported by the application.
+    |
+    */
+
+    'currenct' => 'USD',
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -190,7 +206,7 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-                App\Providers\AuthServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
@@ -210,6 +226,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Currency' => App\Helpers\Currency::class,
     ])->toArray(),
 
 ];
