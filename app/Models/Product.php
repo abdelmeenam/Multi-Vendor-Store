@@ -34,6 +34,7 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         if (!$this->image) {
+            //default if there are no image
             return 'https://www.incathlab.com/images/products/default_product.png';
         }
         if (Str::startsWith($this->image, ['http://', 'https://'])) {
