@@ -1,17 +1,17 @@
 <?php
 
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductContoller;
 use App\Http\Controllers\Admin\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 
 
 //Route::get('/dash', function () { return view('dashboard');})->middleware('auth')->name('dash');
 
 
-Route::group(['middleware' => ['auth', 'verified'], 'as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
+Route::group(['middleware' => ['auth', 'verified', 'auth.type:admin,super-admin'], 'as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -28,5 +28,4 @@ Route::group(['middleware' => ['auth', 'verified'], 'as' => 'dashboard.', 'prefi
     //-------Profile
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
-
 });
