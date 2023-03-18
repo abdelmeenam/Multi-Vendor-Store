@@ -16,6 +16,7 @@ class CartModelRepository implements CartRepository
 
     public function __construct()
     {
+        //collect all items
         $this->items = collect([]);
     }
 
