@@ -46,12 +46,12 @@ class CartModelRepository implements CartRepository
 
     public function update($id, $quantity)
     {
-        Cart::where(['id', '=', $id], ['cookie_id', $this->getCookieId()])->update(['quantity' => $quantity]);
+        Cart::where('id', '=', $id)->where('cookie_id', '=', $this->getCookieId())->update(['quantity' => $quantity]);
     }
 
     public function delete($id)
     {
-        Cart::where(['id', '=', $id], ['cookie_id', $this->getCookieId()])->delete();
+        Cart::where('id', '=', $id)->where('cookie_id', '=', $this->getCookieId())->delete();
     }
 
     public function empty()
