@@ -7,9 +7,18 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Cart\CartModelRepository;
+use App\Repositories\Cart\CartRepository;
 
 class CartController extends Controller
 {
+
+    protected $cart;
+
+    public function __construct(CartRepository $cart)
+    {
+        $this->cart = $cart;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +26,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $repository = new CartModelRepository();
-        $items =  $repository->get();
-        return view('Front.cart', ['cart' => $items]);
+        return view('Front.cart.cart', ['cart' => $this->cart]);
     }
 
     /**
@@ -36,9 +43,9 @@ class CartController extends Controller
         ]);
 
         $product = Product::findOrFail($request->post('product_id'));
+        $this->cart->add($product, $request->post('quantity'));
 
-        $repository = new CartModelRepository();
-        $repository->add($product, $request->post('quantity'));
+        return redirect()->route('cart.index')->with('success', 'Product added to cart');
     }
 
     /**
@@ -52,16 +59,6 @@ class CartController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -72,7 +69,14 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'product_id' => ['required', 'int', 'exists:products,id'],
+            'quantity' => ['nullable', 'int', 'min:1'],
+        ]);
+
+        $product = Product::findOrFail($request->post('product_id'));
+
+        $this->cart->update($product, $request->post('quantity'));
     }
 
     /**
@@ -83,6 +87,6 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->cart->delete($id);
     }
 }

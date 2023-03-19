@@ -22,12 +22,12 @@ class CartModelRepository implements CartRepository
 
     public function get(): Collection
     {
-        return Cart::where('cookie_id', '=', $this->getCookieId())->get();
+        return Cart::with('product')->where('cookie_id', '=', $this->getCookieId())->get();
     }
 
     public function add(Product $product, $quantity = 1)
     {
-        $item =  Cart::where('product_id', '=', $product->id)
+        $item =  Cart::where('product_id', '=', $product->id)->where('cookie_id', '=', $this->getCookieId())
             ->first();
 
         if (!$item) {
@@ -63,13 +63,14 @@ class CartModelRepository implements CartRepository
 
     public function total(): float
     {
-        // return (float) Cart::join('products', 'products.id', '=', 'carts.product_id')
-        //     ->selectRaw('SUM(products.price * carts.quantity) as total')
-        //     ->value('total');
+        return (float) Cart::join('products', 'products.id', '=', 'carts.product_id')
+            ->selectRaw('SUM(products.price * carts.quantity) as total')
+            ->value('total');
 
         // return $this->get()->sum(function ($item) {
         //     return $item->quantity * $item->product->price;
         // });
+
     }
 
     protected function getCookieId()
@@ -78,7 +79,7 @@ class CartModelRepository implements CartRepository
 
         if (!$cookie_id) {
             $cookie_id = Str::uuid();
-            Cookie::queue('cart_id', $cookie_id, Carbon::now()->addDays(30));
+            Cookie::queue('cart_id', $cookie_id, 30 * 24 * 60);
         }
         return $cookie_id;
     }
