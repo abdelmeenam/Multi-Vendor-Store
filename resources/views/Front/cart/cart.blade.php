@@ -80,7 +80,7 @@
                                 <p>{{ Currency::format(0) }}</p>
                             </div>
                             <div class="col-lg-1 col-md-2 col-12">
-                                <a class="btn add-to-cart" data-id="{{$item->id}}" ><i class="lni lni-close"></i></a>
+                                <a class="remove-item" data-id="{{ $item->id }}" href="javascript:void(0)"><i class="lni lni-close"></i></a>
                             </div>
                         </div>
                     </div>
