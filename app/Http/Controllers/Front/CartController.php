@@ -41,10 +41,14 @@ class CartController extends Controller
             'product_id' => ['required', 'int', 'exists:products,id'],
             'quantity' => ['nullable', 'int', 'min:1'],
         ]);
-
         $product = Product::findOrFail($request->post('product_id'));
         $this->cart->add($product, $request->post('quantity'));
-
+        if ($request->expectsJson())
+        {
+            return [
+                'message' => "Item added to cart",
+            ];
+        }
         return redirect()->route('cart.index')->with('success', 'Product added to cart');
     }
 
@@ -70,13 +74,10 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'product_id' => ['required', 'int', 'exists:products,id'],
-            'quantity' => ['nullable', 'int', 'min:1'],
+            'quantity' => ['required', 'int', 'min:1'],
         ]);
 
-        $product = Product::findOrFail($request->post('product_id'));
-
-        $this->cart->update($product, $request->post('quantity'));
+        $this->cart->update($id, $request->post('quantity'));
     }
 
     /**
@@ -88,5 +89,8 @@ class CartController extends Controller
     public function destroy($id)
     {
         $this->cart->delete($id);
+        return [
+            'message' => "Item deleted",
+        ];
     }
 }
