@@ -87,10 +87,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-
         $category = Category::findorfail($id);
         $oldImage = $category->image;
-
         $data = $request->except('image');
         $newImagePath = $this->uploadImage($request);
         if ($newImagePath) {
@@ -103,21 +101,7 @@ class CategoryController extends Controller
         if ($oldImage && $newImagePath) {
             Storage::disk('public')->delete($oldImage);
         }
-
         return redirect()->route('dashboard.categories.index')->with('success', 'category updated');
-    }
-
-
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($id)
-    {
-        //Category::destroy($id);
-        $category = Category::findorfail($id);
-        $category->delete();
-        return redirect()->route('dashboard.categories.index')->with('delete', 'category deleted');
     }
 
     /**
@@ -132,6 +116,18 @@ class CategoryController extends Controller
         $file = $request->file('image');
         $path = $file->Store('uploads', ['disk' => 'public']);
         return $path;
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        //Category::destroy($id);
+        $category = Category::findorfail($id);
+        $category->delete();
+        return redirect()->route('dashboard.categories.index')->with('delete', 'category deleted');
     }
 
     /**
