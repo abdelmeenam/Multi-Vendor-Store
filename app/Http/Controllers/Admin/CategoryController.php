@@ -23,8 +23,8 @@ class CategoryController extends Controller
                     $query->Where('status', 'active');
                 }
             ])
-            ->filer($request->query())              //query() = query param
-            ->paginate();
+            //query() = query param
+            ->filer($request->query())->paginate();
 
         return view('Admin.Categories.index', compact('categories'));
     }

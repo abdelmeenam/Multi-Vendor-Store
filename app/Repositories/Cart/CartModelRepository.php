@@ -4,11 +4,9 @@ namespace App\Repositories\Cart;
 
 use App\Models\Cart;
 use App\Models\Product;
-use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
+
 
 class CartModelRepository implements CartRepository
 {
@@ -31,6 +29,7 @@ class CartModelRepository implements CartRepository
 
     public function add(Product $product, $quantity = 1)
     {
+        //case you add the same product at the future
         $item =  Cart::where('product_id', '=', $product->id)->first();
 
         if (!$item) {

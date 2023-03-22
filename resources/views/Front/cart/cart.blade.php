@@ -1,5 +1,5 @@
 <x-front-layout title="Carts">
-    <X-slot:breadcrumb>
+    <x-slot:breadcrumb>
         <!-- Start Breadcrumbs -->
         <div class="breadcrumbs">
             <div class="container">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <!-- End Breadcrumbs -->
-    </X-slot:breadcrumb>
+    </x-slot:breadcrumb>
 
     <!-- Shopping Cart -->
     <div class="shopping-cart section">
@@ -111,8 +111,8 @@
                                     <ul>
                                         <li>Cart Subtotal<span>{{  Currency::format($cart->total()) }} </span></li>
                                         <li>Shipping<span>Free</span></li>
-                                        <li>You Save<span>$29.00</span></li>
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li>You Save<span>0</span></li>
+                                        <li class="last">You Pay<span>{{Currency::format($cart->total()) }} </span></li>
                                     </ul>
                                     <div class="button">
                                         <a href="checkout.html" class="btn">Checkout</a>
