@@ -15,7 +15,7 @@ class CheckoutController extends Controller
         }
         return view('front.checkout', [
             'cart' => $cart,
-            //'countries' => Countries::getNames(),
+            'countries' => Countries::getNames(),
         ]);
     }
 
