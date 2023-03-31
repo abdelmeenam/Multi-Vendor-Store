@@ -15,6 +15,9 @@ class OrderItem extends Pivot
 
     public $timestamps = false;
 
+    //protected $fillable = ['product_name', 'price', 'quantity'];
+
+
     public function product()
     {
         return $this->belongsTo(Product::class)->withDefault([
