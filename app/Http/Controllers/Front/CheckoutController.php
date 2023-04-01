@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -23,6 +24,7 @@ class CheckoutController extends Controller
             'countries' => Countries::getNames(),
         ]);
     }
+
     public function store(Request $request , CartRepository $cart){
 
         $request->validate([
@@ -31,7 +33,6 @@ class CheckoutController extends Controller
         $items = $cart->get()->groupBy('product.store_id')->all(); //array with key(store_id) and value (items)
         DB::beginTransaction();
         try {
-
             foreach ($items as $store_id => $cart_items)
             {
                 //create order
@@ -56,13 +57,16 @@ class CheckoutController extends Controller
                 //order address data
                 foreach ($request->post('addr') as $type => $address)
                 {
-                    $address['type'] = $type;
-                    $order->addresses()->create($address);
+//                    $address['type'] = $type;
+//                    $order->addresses()->create($address);
                 }
             }
 
-            $cart->empty();
+            //$cart->empty();
             DB::commit();
+
+            //event('order.created' , $order , Auth::user());
+            event(new OrderCreated($order));
 
         } catch ( \Throwable $e){
             DB::rollBack();
