@@ -37,8 +37,8 @@ class DeductProductQuantity
            // foreach (Cart::get() as $item) {
             foreach ($order->products as $product){
                  //Product::where('id', '=', $item->product_id)->update(['quantity' => DB::raw("quantity - {$item->quantity}")]);
-                dd($product->pivot->quantity);
-                $product->decrement('quantity', $product->pivot->quantity);
+                //dd($product->pivot->quantity);
+                $product->decrement('quantity', $product->order_item->quantity);    //$product->pivot->quantity
 
             }
         } catch (Throwable $e) {

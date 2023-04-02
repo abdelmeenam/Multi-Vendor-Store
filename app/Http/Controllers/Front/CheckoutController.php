@@ -57,8 +57,8 @@ class CheckoutController extends Controller
                 //order address data
                 foreach ($request->post('addr') as $type => $address)
                 {
-//                    $address['type'] = $type;
-//                    $order->addresses()->create($address);
+                    $address['type'] = $type;
+                    $order->addresses()->create($address);
                 }
             }
 
