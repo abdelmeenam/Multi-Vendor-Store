@@ -8,12 +8,14 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 
 
-//Route::get('/dash', function () { return view('dashboard');})->middleware('auth')->name('dash');
+// Route::get('/dash', function () {
+//     return view('dashboard');
+// })->middleware('auth')->name('dash');
 
 
 Route::group(['middleware' => ['auth', 'verified', 'auth.type:admin,super-admin'], 'as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     //-----Categories Soft delete routes
     Route::get('/categories/trash/', [CategoryController::class, 'trash'])->name('categories.trash');
