@@ -31,7 +31,7 @@ class OrderCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail' ,'database'];
 
         $channels = ['database'];
         if ($notifiable->notification_preferences['order_created']['sms'] ?? false) {
@@ -62,6 +62,22 @@ class OrderCreatedNotification extends Notification
             ->line("A new order (#{$this->order->number}) created by {$addr->name} from {$addr->country_name}.")
             ->action('View Order', url('/dashboard'))
             ->line('Thank you for using our application!');
+    }
+
+    /**
+     * @param $notifiable
+     * @return array
+     */
+    public function toDatabase($notifiable)
+    {
+        $addr = $this->order->billingAddress;
+
+        return [
+            'body' => "A new order (#{$this->order->number}) created by {$addr->name} from {$addr->country_name}.",
+            'icon' => 'fas fa-file',
+            'url' => url('/dashboard'),
+            'order_id' => $this->order->id,
+        ];
     }
 
     /**
