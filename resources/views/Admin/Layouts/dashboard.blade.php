@@ -256,6 +256,13 @@
     <script src="{{ asset('AdminAssets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('AdminAssets/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('AdminAssets/dist/js/adminlte.min.js') }}"></script>
+
+    <script>
+        const userID ="{{Auth::id()}}";
+    </script>
+
+    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 
