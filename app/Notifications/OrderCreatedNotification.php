@@ -34,7 +34,7 @@ class OrderCreatedNotification extends Notification
     public function via($notifiable)
     {
         //return ['mail' ,'database' , 'broadcast'];
-        return ['database' , 'broadcast'];
+        return ['mail' ,'database' , 'broadcast'];
 
         // $channels = ['database'];
         // if ($notifiable->notification_preferences['order_created']['sms'] ?? false) {
