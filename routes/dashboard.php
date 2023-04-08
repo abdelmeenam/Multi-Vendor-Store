@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 // })->middleware('auth')->name('dash');
 
 
-Route::group(['middleware' => ['auth', 'verified', 'auth.type:admin,super-admin'], 'as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
+Route::group(['middleware' => ['auth:admin', 'verified'], 'as' => 'dashboard.', 'prefix' => 'admin/dashboard'], function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
