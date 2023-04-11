@@ -15,6 +15,7 @@ class CartObserver
      */
     public function creating(cart $cart)
     {
+        //Generate cart id
         $cart->id = Str::uuid();
         $cart->cookie_id = cart::getCookieId();
     }
