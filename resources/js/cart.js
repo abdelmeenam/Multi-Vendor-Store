@@ -5,7 +5,7 @@
 
         $.ajax({
             url: "/cart/" + $(this).data('id'), //data-id
-            method: 'put',
+             : 'put',
             data: {
                 quantity: $(this).val(),
                 _token: csrf_token

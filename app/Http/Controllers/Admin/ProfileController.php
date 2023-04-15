@@ -13,6 +13,8 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
+        dd($user);
+
         return view('Admin.profile.edit', [
             'user' => $user,
             'countries' => Countries::getNames(),

@@ -14,6 +14,7 @@ class Category extends Model
     protected $fillable = ['parent_id', 'name', 'slug', 'description', 'image', 'status'];
 
 
+    //Local scopes
     public function scopeFiler(Builder $builder, $filters)
     {
         $builder->when($filters['name'] ?? false, function ($builder, $value) {
