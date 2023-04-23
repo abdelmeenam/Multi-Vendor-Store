@@ -6,7 +6,7 @@
     <label for="">{{ $label }}</label>
 @endif
 
-<input type="{{ $type }}" name="{{ $name }}" value="{{ old($name, $value) }}" {{ $attributes->class(['form-control', 'is-invalid' => $errors->has($name)]) }}>
+<input type="{{ $type }}" name="{{ $name }}" value="{{ old($name) }}" {{ $attributes->class(['form-control', 'is-invalid' => $errors->has($name)]) }}>
 
 @error($name)
     <div class="invalid-feedback">

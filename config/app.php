@@ -83,8 +83,10 @@ return [
     |
     */
 
-    'currenct' => 'USD',
+    'currency' => 'USD',
 
+
+    'api_token' => env('API_TOKEN'),
 
 
     /*

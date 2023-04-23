@@ -18,17 +18,17 @@
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div>
-            <a href="/">
-                <x-application-logo class="" />
-            </a>
-        </div>
-
-        <div class="">
-            {{ $slot }}
-        </div>
+<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+    <div>
+        <a href="/">
+            <x-application-logo class="" />
+        </a>
     </div>
+
+    <div class="">
+        {{ $slot }}
+    </div>
+</div>
 </body>
 
 </html>

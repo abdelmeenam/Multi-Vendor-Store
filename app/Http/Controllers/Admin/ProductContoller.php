@@ -30,7 +30,7 @@ class ProductContoller extends Controller
     public function create()
     {
 
-        return view('Admin.products.create');
+        //return view('Admin.products.create');
 
     }
 

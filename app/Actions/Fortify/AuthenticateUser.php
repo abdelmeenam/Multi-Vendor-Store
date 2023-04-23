@@ -9,7 +9,6 @@ class AuthenticateUser
 {
     public function authenticate($request)
     {
-
         $username = $request->post(config('fortify.username'));
         $password = $request->post('password');
 
