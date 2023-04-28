@@ -99,7 +99,7 @@
                             <div class="col-lg-8 col-md-6 col-12">
                                 <div class="left">
                                     <div class="coupon">
-                                        <form action="#" target="_blank">
+                                        <form action="#" target="">
                                             <input name="Coupon" placeholder="Enter Your Coupon">
                                             <div class="button">
                                                 <button class="btn">Apply Coupon</button>
@@ -118,7 +118,7 @@
                                         </li>
                                     </ul>
                                     <div class="button">
-                                        <a href="checkout.html" class="btn">Checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn">Checkout</a>
                                         <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>

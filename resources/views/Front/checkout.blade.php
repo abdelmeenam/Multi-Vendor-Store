@@ -339,16 +339,14 @@
                     <div class="checkout-sidebar">
                         <div class="checkout-sidebar-coupon">
                             <p>Appy Coupon to get discount!</p>
-                            <form action="#">
-                                <div class="single-form form-default">
-                                    <div class="form-input form">
-                                        <input type="text" placeholder="Coupon Code">
-                                    </div>
-                                    <div class="button">
-                                        <button class="btn">apply</button>
-                                    </div>
+                            <div class="single-form form-default">
+                                <div class="form-input form">
+                                    <input type="text" placeholder="Coupon Code">
                                 </div>
-                            </form>
+                                <div class="button">
+                                    <button class="btn">apply</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="checkout-sidebar-price-table mt-30">
                             <h5 class="title">Pricing Table</h5>

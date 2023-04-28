@@ -10,6 +10,7 @@ use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception\InvalidCountException;
 use Symfony\Component\Intl\Countries;
 
 class CheckoutController extends Controller
@@ -17,7 +18,7 @@ class CheckoutController extends Controller
     public function create(CartRepository $cart)
     {
         if ($cart->get()->count() == 0) {
-            throw new InvalidOrderException('Cart is empty');
+            throw new InvalidCountException('Cart is empty');
         }
         return view('front.checkout', [
             'cart' => $cart,
@@ -25,7 +26,8 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(Request $request , CartRepository $cart){
+    public function store(Request $request, CartRepository $cart)
+    {
 
         $request->validate([
             'addr.billing.first_name' => ['required', 'string', 'max:255'],
@@ -38,8 +40,7 @@ class CheckoutController extends Controller
         $items = $cart->get()->groupBy('product.store_id')->all(); //array with key(store_id) and value (items)
         DB::beginTransaction();
         try {
-            foreach ($items as $store_id => $cart_items)
-            {
+            foreach ($items as $store_id => $cart_items) {
                 //create order
                 $order = Order::create([
                     'store_id' => $store_id,
@@ -48,8 +49,7 @@ class CheckoutController extends Controller
                 ]);
 
                 //save order items from cart
-                foreach ($cart_items as $item)
-                {
+                foreach ($cart_items as $item) {
                     //dd( $item->product->name);
                     OrderItem::create([
                         'order_id' => $order->id,
@@ -60,27 +60,23 @@ class CheckoutController extends Controller
                     ]);
                 }
                 //order address data
-                foreach ($request->post('addr') as $type => $address)
-                {
+                foreach ($request->post('addr') as $type => $address) {
                     $address['type'] = $type;
                     $order->addresses()->create($address);
                 }
             }
 
-            //$cart->empty();
+            $cart->empty();
+
             DB::commit();
 
             //event('order.created' , $order , Auth::user());
             event(new OrderCreated($order));
-
-        } catch ( \Throwable $e){
+        } catch (\Throwable $e) {
             DB::rollBack();
             throw $e;
         }
 
-        //return redirect()->route('home');
+        return redirect()->route('home');
     }
-
-
-
 }

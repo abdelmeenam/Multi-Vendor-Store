@@ -35,14 +35,12 @@ class AccessTokenController extends Controller
                 'token' => $token->plainTextToken,
                 'user' => $user,
             ], 201);
-
         }
 
         return Response::json([
             'code' => 0,
             'message' => 'Invalid credentials',
         ], 401);
-
     }
 
     public function destroy($token = null)
@@ -66,6 +64,4 @@ class AccessTokenController extends Controller
             $personalAccessToken->delete();
         }
     }
-
-
 }

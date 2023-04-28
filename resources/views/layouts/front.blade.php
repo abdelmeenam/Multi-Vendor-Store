@@ -29,33 +29,35 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-left">
                             <ul class="menu-top-link">
+                                <!----------------------------------------------------- curreny section--------------------------------------------->
                                 <li>
                                     <div class="select-position">
-                                    <form action="{{route('currency.store')}}" method="post">
-                                        @csrf
-                                        <select name="currency_code" onchange="this.form.submit()">
-                                            <option value="USD" @selected('USD' == session('currency_code')) >$ USD</option>
-                                            <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO</option>
-                                            <option value="ILS" @selected('ILS' == session('currency_code'))>$ ILS</option>
-                                            <option value="JOD" @selected('JOD' == session('currency_code'))>₹ JOD</option>
-                                            <option value="SAR" @selected('SAR' == session('currency_code'))>¥ SAR</option>
-                                            <option value="QAR" @selected('QAR' == session('currency_code'))>৳ QAR</option>
-                                        </select>
-                                    </form>
+                                        <form action="{{ route('currency.store') }}" method="post">
+                                            @csrf
+                                            <select name="currency_code" onchange="this.form.submit()">
+                                                <option value="USD" @selected('USD' == session('currency_code'))>$ USD</option>
+                                                <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO</option>
+                                                <option value="ILS" @selected('ILS' == session('currency_code'))>$ ILS</option>
+                                                <option value="JOD" @selected('JOD' == session('currency_code'))>₹ JOD</option>
+                                                <option value="SAR" @selected('SAR' == session('currency_code'))>¥ SAR</option>
+                                                <option value="QAR" @selected('QAR' == session('currency_code'))>৳ QAR</option>
+                                            </select>
+                                        </form>
                                     </div>
                                 </li>
+                                <!-----------------------------------------------------End curreny section--------------------------------------------->
+                                <!----------------------------------------------------- Lang section--------------------------------------------->
                                 <li>
-                                    <div class="select-position">
-                                        <select id="select5">
-                                            <option value="0" selected>English</option>
-                                            <option value="1">Español</option>
-                                            <option value="2">Filipino</option>
-                                            <option value="3">Français</option>
-                                            <option value="4">العربية</option>
-                                            <option value="5">हिन्दी</option>
-                                            <option value="6">বাংলা</option>
-                                        </select>
-                                    </div>
+                                    <ul>
+                                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                            <li>
+                                                <a @if( $localeCode == App::currentLocale() ) style="color:blue " @else style="color:white" @endif rel="alternate"  hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                    {{ $properties['native'] }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <!-----------------------------------------------------End Lang section--------------------------------------------->
                                 </li>
                             </ul>
                         </div>
@@ -63,9 +65,9 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="index.html">{{ trans('Home') }}</a></li>
+                                <li><a href="about-us.html">@lang('About Us')</a></li>
+                                <li><a href="contact.html">{{ __('Contact Us') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -83,21 +85,22 @@
                                             onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign
                                             Out</a>
                                     </li>
-                                    <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
+                                    <form action="{{ route('logout') }}" id="logout" method="post"
+                                        style="display:none">
                                         @csrf
                                     </form>
                                 </ul>
                             @else
                                 <div class="user">
                                     <i class="lni lni-user"></i>
-                                    Hello
+                                    {{ __('Hello') }}
                                 </div>
                                 <ul class="user-login">
                                     <li>
-                                        <a href="{{ route('login') }}">Sign In</a>
+                                        <a href="{{ route('login') }}">{{ Lang::get('Sign In') }}</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('register') }}">Register</a>
+                                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </li>
                                 </ul>
                             @endauth
@@ -474,6 +477,12 @@
     <script src="{{ asset('FrontAssets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('FrontAssets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('FrontAssets/js/main.js') }}"></script>
+    <script>
+        {{--$( "#lang_selector" ).click(function(e) {--}}
+        {{--    e.preventDefault();--}}
+        {{--    window.location.href ="{{ LaravelLocalization::getLocalizedURL("+ $( '#lang_selecto' ).val()+", null,[],true)}}";--}}
+        {{--});--}}
+    </script>
     @stack('scripts')
 </body>
 

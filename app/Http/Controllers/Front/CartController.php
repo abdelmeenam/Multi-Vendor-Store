@@ -41,10 +41,10 @@ class CartController extends Controller
             'product_id' => ['required', 'int', 'exists:products,id'],
             'quantity' => ['nullable', 'int', 'min:1'],
         ]);
+
         $product = Product::findOrFail($request->post('product_id'));
         $this->cart->add($product, $request->post('quantity'));
-        if ($request->expectsJson())
-        {
+        if ($request->expectsJson()) {
             return [
                 'message' => "Item added to cart",
             ];

@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\AccessTokenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\AccessTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +27,4 @@ Route::delete('auth/access-tokens/{token?}', [AccessTokenController::class, 'des
 
 
 //-----------Api resource for products----------
-Route::apiResource('products' , \App\Http\Controllers\Api\ProductController::class);
-
+Route::apiResource('products', ProductController::class);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use Illuminate\Support\Facades\Http;
 
 class CurrencyConverter
@@ -31,6 +32,4 @@ class CurrencyConverter
         //dd($result);
         return $result[$q]['val'] * $amount;
     }
-
-
 }

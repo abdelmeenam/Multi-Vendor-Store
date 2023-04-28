@@ -35,6 +35,5 @@ class CurrencyConverterController extends Controller
         Session::put('currency_code', $currencyCode);
 
         return redirect()->back();
-
     }
 }
