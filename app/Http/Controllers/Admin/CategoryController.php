@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function PHPUnit\Framework\isNull;
@@ -15,6 +16,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        Gate::authorize('categories.view');
+
         $request = request();
 
         $categories = Category::with('parent')
@@ -29,14 +32,14 @@ class CategoryController extends Controller
         return view('Admin.Categories.index', compact('categories'));
     }
 
-
     public function create()
     {
+        Gate::authorize('categories.create');
+
         $parents = Category::all();
         $category = new Category();
         return view('Admin.Categories.create', compact('parents', 'category'));
     }
-
 
     public function show(Category $category)
     {
@@ -58,10 +61,6 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories.index')->with('success', 'category added');
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
-     */
     public function edit($id)
     {
         try {
@@ -80,11 +79,6 @@ class CategoryController extends Controller
         return view('Admin.Categories.edit', compact(['category', 'parents']));
     }
 
-    /**
-     * @param CategoryRequest $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(CategoryRequest $request, $id)
     {
         $category = Category::findorfail($id);
@@ -104,10 +98,6 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories.index')->with('success', 'category updated');
     }
 
-    /**
-     * @param Request $request
-     * @return false|string|void
-     */
     protected function uploadImage(Request $request)
     {
         if (!$request->hasFile('image')) {
@@ -118,10 +108,6 @@ class CategoryController extends Controller
         return $path;
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy($id)
     {
         //Category::destroy($id);
@@ -130,20 +116,12 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories.index')->with('delete', 'category deleted');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function trash()
     {
         $categories = Category::onlyTrashed()->paginate();
         return view('Admin.Categories.trash', compact('categories'));
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function restore(Request $request, $id)
     {
         $category = Category::onlyTrashed()->findOrFail($id);
@@ -153,10 +131,6 @@ class CategoryController extends Controller
             ->with('success', 'Category restored!');
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function forceDelete($id)
     {
         $category = Category::onlyTrashed()->findOrFail($id);

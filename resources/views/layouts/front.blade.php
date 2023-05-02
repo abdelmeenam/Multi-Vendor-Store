@@ -46,19 +46,37 @@
                                     </div>
                                 </li>
                                 <!-----------------------------------------------------End curreny section--------------------------------------------->
-                                <!----------------------------------------------------- Lang section--------------------------------------------->
+                                {{--                            <!----------------------------------------------------- Lang section---------------------------------------------> --}}
+                                {{--                                <li> --}}
+                                {{--                                    <ul class=""> --}}
+                                {{--                                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) --}}
+                                {{--                                            <li > --}}
+                                {{--                                                <a @if ($localeCode == App::currentLocale()) style="color:blue " @else style="color:white" @endif rel="alternate"  hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"> --}}
+                                {{--                                                    {{ $properties['native'] }} --}}
+                                {{--                                                </a>
+                                    --}}
+                                {{--                                            </li> --}}
+                                {{--                                        @endforeach --}}
+                                {{--                                    </ul> --}}
+                                {{--                                </li> --}}
+
                                 <li>
-                                    <ul>
-                                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                            <li>
-                                                <a @if( $localeCode == App::currentLocale() ) style="color:blue " @else style="color:white" @endif rel="alternate"  hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                                    {{ $properties['native'] }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <!-----------------------------------------------------End Lang section--------------------------------------------->
+                                    <div class="select-position">
+                                        <select id="select5">
+                                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                <option>
+                                                    <a rel="alternate" hreflang="{{ $localeCode }}"
+                                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                        {{ $properties['native'] }}
+                                                    </a>
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </li>
+
+
+                                <!-----------------------------------------------------End Lang section--------------------------------------------->
                             </ul>
                         </div>
                     </div>
@@ -477,12 +495,6 @@
     <script src="{{ asset('FrontAssets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('FrontAssets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('FrontAssets/js/main.js') }}"></script>
-    <script>
-        {{--$( "#lang_selector" ).click(function(e) {--}}
-        {{--    e.preventDefault();--}}
-        {{--    window.location.href ="{{ LaravelLocalization::getLocalizedURL("+ $( '#lang_selecto' ).val()+", null,[],true)}}";--}}
-        {{--});--}}
-    </script>
     @stack('scripts')
 </body>
 

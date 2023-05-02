@@ -10,7 +10,9 @@
 
 @section('content')
     <div class="mb-5">
+        @can('categories.create')
         <a href="{{route('dashboard.categories.create')}}" class="btn btn-sm btn-outline-primary mr-2">Create</a>
+        @endcan
         <a href="{{route('dashboard.categories.trash')}}" class="btn btn-sm btn-outline-dark mr-2">Trash</a>
     </div>
 
@@ -19,7 +21,6 @@
 
     <form action="{{URL::current()}}" method="get" class="d-flex justify-content-between mb-4">
         <x-form.input label="Name" class="mx-2" name="name" :value="request('name')" />
-
         <select name="status" class="form-control mx-2">
             <option value="">All</option>
             <option value="active" @selected( request('status') =='active') >Active</option>
@@ -29,18 +30,18 @@
     </form>
 
     <table class="table">
-        <thead>
-        <tr>
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Parent Category</th>
-            <th>Products #</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th colspan="2">Operation</th>
-        </tr>
-        </thead>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Parent Category</th>
+                    <th>Products #</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th colspan="2">Operation</th>
+                </tr>
+            </thead>
         <tbody>
         @forelse($categories as $category)
             <tr>
@@ -53,15 +54,19 @@
                 <td>{{ $category->created_at }}</td>
 
                 <td>
-                        <a href="{{ route('dashboard.categories.edit', $category->id) }}" class="btn btn-sm btn-outline-success">Edit</a>
+                    @can('categories.update')
+                    <a href="{{ route('dashboard.categories.edit', $category->id) }}" class="btn btn-sm btn-outline-success">Edit</a>
+                    @endcan
                 </td>
                 <td>
-                        <form action="{{ route('dashboard.categories.destroy', $category->id) }}" method="post">
+                    @can('categories.delete')
+                    <form action="{{ route('dashboard.categories.destroy', $category->id) }}" method="post">
                             @csrf
                             <!-- Form Method Spoofing -->
                             @method('delete')
                             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
+                    @endcan
                 </td>
             </tr>
         @empty
