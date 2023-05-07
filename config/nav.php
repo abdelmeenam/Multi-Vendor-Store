@@ -22,4 +22,11 @@ return [
         'ability' => 'products.view'
     ],
 
+    [
+        'icon' => 'fas fa-tags nav-icon',
+        'route' => 'dashboard.roles.index',
+        'title' => 'Roles',
+        'active' => 'dashboard.roles.*',
+        //'ability' => 'products.view'
+    ],
 ];

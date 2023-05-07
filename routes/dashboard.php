@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\RolesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductContoller;
 use App\Http\Controllers\Admin\ProfileController;
@@ -22,9 +23,12 @@ Route::group(['middleware' => ['auth:admin', 'verified'], 'as' => 'dashboard.', 
     Route::put('categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
     Route::delete('categories/{category}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.force-delete');
 
-    //----Resource
-    Route::resource('/categories', CategoryController::class);
-    Route::resource('/products', ProductContoller::class);
+    //-----------Resource----------
+    Route::resources([
+        'products' => ProductContoller::class,
+        'categories' => CategoryController::class,
+        'roles' => RolesController::class,
+    ]);
 
 
     //-------Profile

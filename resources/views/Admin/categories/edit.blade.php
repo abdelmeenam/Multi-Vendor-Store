@@ -11,11 +11,11 @@
 @section('content')
 
 
-    <form action="{{ route('dashboard.categories.update' , $category->id) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('dashboard.categories.update', $category->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
-        @include('Admin.categories._form' ,['button_label' => 'Update'])
+        @include('Admin.categories._form', ['button_label' => 'Update'])
     </form>
 
 @endsection
