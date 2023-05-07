@@ -9,7 +9,7 @@
         <div class="row mb-2">
 
             <div class="col-md-6">
-                {{ $abilityName }}
+                {{ is_callable($abilityName) ? $abilityName() : $abilityName }}
             </div>
 
             <div class="col-md-2">
@@ -27,7 +27,6 @@
                     @checked(($roleAbilities[$abilityCode] ?? '') == 'inherit')>
                 Inherit
             </div>
-
         </div>
     @endforeach
 </fieldset>

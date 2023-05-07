@@ -1,28 +1,30 @@
 <?php
 
 return [
-    'categories.view' => 'View categories',
-    'categories.create' => 'Create categories',
-    'categories.update' => 'Update categories',
-    'categories.delete' => 'Delete categories',
+    'categories.view' => fn () => __('View categories'),
+    'categories.create' => fn () => __('Create categories'),
+    'categories.update' => fn () => __('Update categories'),
+    'categories.delete' => fn () => __('Delete categories'),
 
-    'products.view' => 'View products',
-    'products.create' => 'Create products',
-    'products.update' => 'Update products',
-    'products.delete' => 'Delete products',
+    'products.view' => fn () => __('View products'),
+    'products.create' => fn () => __('Create products'),
+    'products.update' => fn () => __('Update products'),
+    'products.delete' => fn () => __('Delete products'),
 
-    'orders.view'   => 'View orders',
-    'orders.create' => 'Create orders',
-    'orders.update' => 'Update orders',
-    'orders.delete' => 'Delete orders',
+    'orders.view' => fn () => __('View orders'),
+    'orders.create' => fn () => __('Create orders'),
+    'orders.update' => fn () => __('Update orders'),
+    'orders.delete' => fn () => __('Delete orders'),
 
-    'users.view' => 'View users',
-    'users.create' => 'Create users',
-    'users.update' => 'Update users',
-    'users.delete' => 'Delete users',
+    'users.view' => fn () => __('View users'),
+    'users.create' => fn () => __('Create users'),
+    'users.update' => fn () => __('Update users'),
+    'users.delete' => fn () => __('Delete users'),
 
-    'roles.view' => 'View roles',
-    'roles.create' => 'Create roles',
-    'roles.update' => 'Update roles',
-    'roles.delete' => 'Delete roles',
+    'roles.view' => fn () => __('View roles'),
+    'roles.create' => fn () => __('Create roles'),
+    'roles.update' => fn () => __('Update roles'),
+    'roles.delete' => fn () => __('Delete roles'),
+
+
 ];

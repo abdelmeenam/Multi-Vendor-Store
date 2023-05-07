@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Product;
 use App\Models\Tag;
+use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class ProductContoller extends Controller
 {
@@ -18,6 +19,8 @@ class ProductContoller extends Controller
      */
     public function index()
     {
+        Gate::authorize('products.view');
+
         $products = Product::with(['category', 'store'])->paginate(5);
         return view('Admin.products.index', compact('products'));
     }
@@ -80,7 +83,7 @@ class ProductContoller extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update( $request->except('tags') );
+        $product->update($request->except('tags'));
 
         $tags = json_decode($request->post('tags'));  //Array of objects
 

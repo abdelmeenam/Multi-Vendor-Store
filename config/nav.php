@@ -27,6 +27,6 @@ return [
         'route' => 'dashboard.roles.index',
         'title' => 'Roles',
         'active' => 'dashboard.roles.*',
-        //'ability' => 'products.view'
+        'ability' => 'roles.view'
     ],
 ];

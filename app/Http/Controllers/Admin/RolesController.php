@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class RolesController extends Controller
 {
 
     public function index()
     {
+        Gate::authorize('roles.view');
+
         $roles = Role::paginate();
         return view('Admin.roles.index', compact('roles'));
     }

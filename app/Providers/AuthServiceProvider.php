@@ -26,10 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //declare all gates using for each
+        //check if user has policy or no
         foreach (config('abilities') as $code => $label) {
-            Gate::define($code, function ($user) {
-                return true;
+            Gate::define($code, function ($user) use ($code) {
+                return $user->hasAbility($code);
             });
         }
     }

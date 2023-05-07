@@ -29,43 +29,43 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Deleted At</th>
-            <th colspan="2">Operation</th>
-        </tr>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Deleted At</th>
+                <th colspan="2">Operation</th>
+            </tr>
         </thead>
         <tbody>
-        @forelse($categories as $category)
-            <tr>
-                <td><img src="{{ asset('storage/' . $category->image) }}" alt="" height="50"></td>
-                <td>{{ $category->id }}</td>
-                <td>{{ $category->name }}</td>
-                <td>{{ $category->status }}</td>
-                <td>{{ $category->deleted_at }}</td>
-                <td>
-                    <form action="{{ route('dashboard.categories.restore', $category->id) }}" method="post">
-                        @csrf
-                        @method('put')
-                        <button type="submit" class="btn btn-sm btn-outline-info">Restore</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="{{ route('dashboard.categories.force-delete', $category->id) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="7">No categories defined.</td>
-            </tr>
-        @endforelse
+            @forelse($categories as $category)
+                <tr>
+                    <td><img src="{{ asset('storage/' . $category->image) }}" alt="" height="50"></td>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->status }}</td>
+                    <td>{{ $category->deleted_at }}</td>
+                    <td>
+                        <form action="{{ route('dashboard.categories.restore', $category->id) }}" method="post">
+                            @csrf
+                            @method('put')
+                            <button type="submit" class="btn btn-sm btn-outline-info">Restore</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ route('dashboard.categories.force-delete', $category->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7">No categories defined.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 
