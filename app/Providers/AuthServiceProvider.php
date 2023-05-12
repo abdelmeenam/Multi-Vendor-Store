@@ -39,11 +39,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //check if user has policy or no
+        //if user is super admin return true and don't check any other policy or ability
+        Gate::before(function ($user , $ability) {
+            if ($user->super_admin) {
+                return true;
+            }
+        });
+
+
+        //Register abilities as gates for policies
         foreach ($this->app->make('abilities') as $code => $label) {
-            Gate::define($code, function ($user) use ($code) {
-                return $user->hasAbility($code);
-            });
-        }
+        Gate::define($code, function ($user) use ($code) {
+            return $user->hasAbility($code);
+        });
+    }
     }
 }

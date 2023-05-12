@@ -29,4 +29,20 @@ return [
         'active' => 'dashboard.roles.*',
         'ability' => 'roles.view'
     ],
+
+    [
+        'icon' => 'fas fa-users nav-icon',
+        'route' => 'dashboard.users.index',
+        'title' => 'Users',
+        'active' => 'dashboard.users.*',
+        'ability' => 'users.view'
+    ],
+
+    [
+        'icon' => 'fas fa-users nav-icon',
+        'route' => 'dashboard.admins.index',
+        'title' => 'admins',
+        'active' => 'dashboard.admins.*',
+        'ability' => 'admins.view'
+    ],
 ];

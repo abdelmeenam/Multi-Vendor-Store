@@ -59,6 +59,7 @@ class CheckoutController extends Controller
                         'quantity' => $item->quantity,
                     ]);
                 }
+
                 //order address data
                 foreach ($request->post('addr') as $type => $address) {
                     $address['type'] = $type;

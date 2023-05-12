@@ -1,7 +1,9 @@
 <?php
 
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductContoller;
 use App\Http\Controllers\Admin\ProfileController;
@@ -34,6 +36,8 @@ Route::group(
             'products' => ProductContoller::class,
             'categories' => CategoryController::class,
             'roles' => RolesController::class,
+            'users' => UserController::class,
+            'admins' => AdminController::class,
         ]);
 
 
