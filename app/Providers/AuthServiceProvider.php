@@ -15,6 +15,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+         'App\Models\Product' => 'App\Policies\ProductPolicy',
+            'App\Models\Role' => 'App\Policies\RolePolicy',
     ];
 
 
@@ -40,11 +42,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //if user is super admin return true and don't check any other policy or ability
-        Gate::before(function ($user , $ability) {
-            if ($user->super_admin) {
-                return true;
-            }
-        });
+//        Gate::before(function ($user , $ability) {
+//            if ($user->super_admin) {
+//                return true;
+//            }
+//        });
 
 
         //Register abilities as gates for policies

@@ -10,6 +10,8 @@ return [
     'products.create' =>  __('Create products'),
     'products.update' =>  __('Update products'),
     'products.delete' => __('Delete products'),
+    'products.restore' =>  __('Restore products'),
+    'products.forceDelete' =>  __('Force delete products'),
 
     'orders.view' =>  __('View orders'),
     'orders.create' =>  __('Create orders'),
@@ -25,6 +27,8 @@ return [
     'roles.create' =>  __('Create roles'),
     'roles.update' =>  __('Update roles'),
     'roles.delete' =>  __('Delete roles'),
+    'roles.restore' =>  __('Restore roles'),
+    'roles.forceDelete' =>  __('Force delete roles'),
 
 
 ];

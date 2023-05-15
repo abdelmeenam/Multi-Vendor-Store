@@ -9,9 +9,11 @@
 
 @section('content')
 
-    <div class="mb-5">
-        <a href="{{ route('dashboard.roles.create') }}" class="btn btn-sm btn-outline-primary mr-2">Create</a>
-    </div>
+        @can('create' ,'App\Models\Role')
+        <div class="mb-5">
+            <a href="{{ route('dashboard.roles.create') }}" class="btn btn-sm btn-outline-primary mr-2">Create</a>
+        </div>
+        @endcan
 
     <x-alert type="success" />
     <x-alert type="info" />
@@ -32,13 +34,14 @@
                     <td><a href="{{ route('dashboard.roles.show', $role->id) }}">{{ $role->name }}</a></td>
                     <td>{{ $role->created_at }}</td>
 
+                    @can('update' , $role)
                     <td>
                         <a href="{{ route('dashboard.roles.edit', $role->id) }}"
                             class="btn btn-sm btn-outline-success">Edit</a>
                     </td>
-
+                    @endcan
                     <td>
-                        @can('roles.delete')
+                        @can('delete' , $role)
                             <form action="{{ route('dashboard.roles.destroy', $role->id) }}" method="post">
                                 @csrf
                                 <!-- Form Method Spoofing -->

@@ -5,19 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
 
 class RolesController extends Controller
 {
+    public function __construct()
+    {
+        //authorize resource instead of using authorize in every method
+        $this->authorizeResource(Role::class, 'role');
+    }
 
     public function index()
     {
-        Gate::authorize('roles.view');
-
         $roles = Role::paginate();
         return view('Admin.roles.index', compact('roles'));
     }
-
 
     public function create()
     {
@@ -26,7 +27,6 @@ class RolesController extends Controller
             'role' => new Role(),
         ]);
     }
-
 
     public function store(Request $request)
     {
@@ -43,11 +43,8 @@ class RolesController extends Controller
             ->with('success', 'Role created successfully');
     }
 
-
-
     public function edit(Role $role)
     {
-
         $roleAbilities =  $role->abilities()->pluck('type', 'ability')->toArray(); //pluck return array wuz k,v instead object
         //dd($roleAbilities);
 
@@ -56,7 +53,6 @@ class RolesController extends Controller
             'roleAbilities' => $roleAbilities,
         ]);
     }
-
 
     public function update(Request $request, Role $role)
     {
