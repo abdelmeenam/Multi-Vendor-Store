@@ -49,11 +49,12 @@ class AuthServiceProvider extends ServiceProvider
 //        });
 
 
-        //Register abilities as gates for policies
+        //Register abilities as gates for policies with authenticated user
         foreach ($this->app->make('abilities') as $code => $label) {
-        Gate::define($code, function ($user) use ($code) {
-            return $user->hasAbility($code);
-        });
+
+            Gate::define($code, function ($user) use ($code) {
+                return $user->hasAbility($code);
+            });
     }
     }
 }
